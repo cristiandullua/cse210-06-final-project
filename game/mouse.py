@@ -10,11 +10,14 @@ class Mouse():
             ball_color = MAROON
             print(ball_color)
             print(self.ball_position)
+             print(pyray.MOUSE_BUTTON_LEFT)
         elif pyray.is_mouse_button_pressed(pyray.MOUSE_BUTTON_MIDDLE):
             ball_color = LIME
             print(ball_color)
             print(self.ball_position)
+             print(pyray.MOUSE_BUTTON_MIDDLE)
         elif pyray.is_mouse_button_pressed(pyray.MOUSE_BUTTON_RIGHT):
             ball_color = DARKBLUE
             print(ball_color)
             print(self.ball_position)
+             print(pyray.MOUSE_BUTTON_RIGHT)
