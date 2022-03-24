@@ -2,6 +2,7 @@
 
 ## **Description**
 Cycle is a game where the players try to cut each other off using cycles that leave a trail behind them.  
+
 ## **Requirements**
 Cycle is a game where the players try to cut each other off using cycles that leave a trail behind them.  
 Make sure you have Python 3.8.0 or newer and Raylib Python CFFI 3.7 installed and running on your machine. You can install Raylib Python CFFI by opening a terminal and running the following command.
@@ -40,8 +41,6 @@ cse210-03
     │      point.py
 ```
 
-## **Required software**
-Python 3.10
 ## **Team members info**
 | Name      | email |
 | ----------- | ----------- | 
