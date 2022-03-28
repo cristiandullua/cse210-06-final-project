@@ -8,7 +8,7 @@ from game.scripting.script import Script
 class Director(ActionCallback):
     """A person who directs the game."""
 
-    def __init__(self, video_service):
+    def __init__(self, video_service, columns, rows):
         """Constructs a new Director using the specified video service.
         
         Args:
@@ -18,6 +18,8 @@ class Director(ActionCallback):
         self._cast = Cast()
         self._script = Script()
         self._scene_manager = SceneManager()
+        self._columns = columns
+        self._rows = rows
         
     def on_next(self, scene):
         """Overriden ActionCallback method transitions to next scene.

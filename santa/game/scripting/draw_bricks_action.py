@@ -7,7 +7,7 @@ class DrawBricksAction(Action):
     def __init__(self, video_service):
         self._video_service = video_service
         
-    def execute(self, cast, script, callback):
+    def execute(self, cast, script, callback, velocity = 3):
         bricks = cast.get_actors(BRICK_GROUP)
         
         for brick in bricks:
@@ -20,4 +20,5 @@ class DrawBricksAction(Action):
             animation = brick.get_animation()
             image = animation.next_image()
             position = body.get_position()
+            velocity = body.get_position() 
             self._video_service.draw_image(image, position)

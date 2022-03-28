@@ -5,6 +5,7 @@ from constants import *
 from game.casting.color import Color
 from game.casting.text import Text
 from game.services.video_service import VideoService 
+from game.casting.point import Point
 
 
 class RaylibVideoService(VideoService):
@@ -17,6 +18,7 @@ class RaylibVideoService(VideoService):
         self._color = color
         self._fonts = {}
         self._textures = {}
+        self._position = Point(0, 0)
         
     def clear_buffer(self):
         raylib_color = self._to_raylib_color(self._color)

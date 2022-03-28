@@ -50,6 +50,17 @@ class Point:
             An integer containing the y value or vertical distance.
         """
         return self._y
+    def scale(self, factor):
+        """
+        Scales the point by the provided factor.
+
+        Args:
+            factor (int): The amount to scale.
+            
+        Returns:
+            Point: A new Point that is scaled.
+        """
+        return Point(self._x * factor, self._y * factor)
 
     def multiply(self, factor):
         """
@@ -63,12 +74,12 @@ class Point:
         """
         return Point(self._x * factor, self._y * factor)
 
-    def reverse(self):
-        """Reverses the point by inverting both x and y values.
+    """def reverse(self):
+        Reverses the point by inverting both x and y values.
 
         Returns:
             A new instance of Point that is reversed.
-        """
+        
         new_x = self._x * -1
         new_y = self._y * -1
-        return Point(new_x, new_y)
+        return Point(new_x, new_y)"""

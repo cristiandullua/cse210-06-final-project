@@ -1,5 +1,6 @@
 import csv
 from constants import *
+import random
 from game.casting.animation import Animation
 from game.casting.ball import Ball
 from game.casting.body import Body
@@ -31,6 +32,7 @@ from game.scripting.release_devices_action import ReleaseDevicesAction
 from game.scripting.start_drawing_action import StartDrawingAction
 from game.scripting.timed_change_scene_action import TimedChangeSceneAction
 from game.scripting.unload_assets_action import UnloadAssetsAction
+from game.scripting.move_bricks_action import MoveBricksAction
 from game.services.raylib.raylib_audio_service import RaylibAudioService
 from game.services.raylib.raylib_keyboard_service import RaylibKeyboardService
 from game.services.raylib.raylib_physics_service import RaylibPhysicsService
@@ -60,6 +62,7 @@ class SceneManager:
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
     MOVE_BALL_ACTION = MoveBallAction()
     MOVE_RACKET_ACTION = MoveRacketAction()
+    MOVE_BRICKS_ACTION = MoveBricksAction()
     RELEASE_DEVICES_ACTION = ReleaseDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     START_DRAWING_ACTION = StartDrawingAction(VIDEO_SERVICE)
     UNLOAD_ASSETS_ACTION = UnloadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -147,15 +150,15 @@ class SceneManager:
     
     def _activate_ball(self, cast):
         ball = cast.get_first_actor(BALL_GROUP)
-        ball.release()
+        #ball.release()
 
     def _add_ball(self, cast):
         cast.clear_actors(BALL_GROUP)
-        x = CENTER_X - BALL_WIDTH / 2
-        y = SCREEN_HEIGHT - RACKET_HEIGHT - BALL_HEIGHT  
+        x = (0)
+        y = (50)
         position = Point(x, y)
         size = Point(BALL_WIDTH, BALL_HEIGHT)
-        velocity = Point(0, 0)
+        velocity = Point(3, 0)
         body = Body(position, size, velocity)
         image = Image(BALL_IMAGE)
         ball = Ball(body, image, True)
@@ -167,6 +170,8 @@ class SceneManager:
         stats = cast.get_first_actor(STATS_GROUP)
         level = stats.get_level() % BASE_LEVELS
         filename = LEVEL_FILE.format(level)
+        cols = 100
+        rows = 65
 
         with open(filename, 'r') as file:
             reader = csv.reader(file, skipinitialspace=True)
@@ -174,8 +179,8 @@ class SceneManager:
             for r, row in enumerate(reader):
                 for c, column in enumerate(row):
 
-                    x = FIELD_LEFT + c * BRICK_WIDTH
-                    y = FIELD_TOP + r * BRICK_HEIGHT
+                    x = random.randint(0,1000)
+                    y = random.randint(-200,-50)
                     color = column[0]
                     frames = int(column[1])
                     points = BRICK_POINTS 
@@ -185,13 +190,13 @@ class SceneManager:
                     
                     position = Point(x, y)
                     size = Point(BRICK_WIDTH, BRICK_HEIGHT)
-                    velocity = Point(0, 0)
+                    velocity = Point(0, 0 + 3)
                     images = BRICK_IMAGES[color][0:frames]
 
                     body = Body(position, size, velocity)
                     animation = Animation(images, BRICK_RATE, BRICK_DELAY)
 
-                    brick = Brick(body, animation, points)
+                    brick = Brick(body, animation, points, cols, rows)
                     cast.add_actor(BRICK_GROUP, brick)
 
     def _add_dialog(self, cast, message):
@@ -230,7 +235,7 @@ class SceneManager:
     def _add_racket(self, cast):
         cast.clear_actors(RACKET_GROUP)
         x = CENTER_X - RACKET_WIDTH / 2
-        y = SCREEN_HEIGHT - RACKET_HEIGHT
+        y = SCREEN_HEIGHT - 200
         position = Point(x, y)
         size = Point(RACKET_WIDTH, RACKET_HEIGHT)
         velocity = Point(0, 0)
@@ -271,6 +276,7 @@ class SceneManager:
     def _add_update_script(self, script):
         script.clear_actions(UPDATE)
         script.add_action(UPDATE, self.MOVE_BALL_ACTION)
+        script.add_action(UPDATE, self.MOVE_BRICKS_ACTION)
         script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
         script.add_action(UPDATE, self.COLLIDE_BORDERS_ACTION)
         script.add_action(UPDATE, self.COLLIDE_BRICKS_ACTION)

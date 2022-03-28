@@ -6,7 +6,7 @@ from game.casting.color import Color
 # -------------------------------------------------------------------------------------------------- 
 
 # GAME
-GAME_NAME = "Batter"
+GAME_NAME = "Christmas Catch"
 FRAME_RATE = 60
 
 # SCREEN
@@ -16,8 +16,8 @@ CENTER_X = SCREEN_WIDTH / 2
 CENTER_Y = SCREEN_HEIGHT / 2
 
 # FIELD
-FIELD_TOP = 60
-FIELD_BOTTOM = SCREEN_HEIGHT
+FIELD_TOP = 40
+FIELD_BOTTOM = 200
 FIELD_LEFT = 0
 FIELD_RIGHT = SCREEN_WIDTH
 
@@ -28,7 +28,7 @@ FONT_LARGE = 48
 
 # SOUND
 BOUNCE_SOUND = "santa/assets/sounds/boing.wav"
-WELCOME_SOUND = "santa/assets/sounds/start.wav"
+WELCOME_SOUND = "santa/assets/sounds/christmas.mp3"
 OVER_SOUND = "santa/assets/sounds/over.wav"
 
 # TEXT
@@ -95,7 +95,9 @@ BALL_GROUP = "balls"
 BALL_IMAGE = "santa/assets/images/000.png"
 BALL_WIDTH = 28
 BALL_HEIGHT = 28
-BALL_VELOCITY = 6
+BALL_VELOCITY = 3
+MAX_X = 900
+MAX_Y = 600
 
 # RACKET
 RACKET_GROUP = "rackets"
@@ -105,15 +107,16 @@ RACKET_HEIGHT = 28
 RACKET_RATE = 6
 RACKET_VELOCITY = 7
 
+
 # BRICK
 BRICK_GROUP = "bricks"
 BRICK_IMAGES = {
-    "b": [f"santa/assets/images/{i:03}.png" for i in range(10,19)],
-    "g": [f"santa/assets/images/{i:03}.png" for i in range(20,29)],
-    "p": [f"santa/assets/images/{i:03}.png" for i in range(30,39)],
-    "y": [f"santa/assets/images/{i:03}.png" for i in range(40,49)]
+    "b": [f"santa/assets/images/{i:03}.png" for i in range(10,11)],
+    "g": [f"santa/assets/images/{i:03}.png" for i in range(20,21)],
+    "p": [f"santa/assets/images/{i:03}.png" for i in range(30,31)],
+    "y": [f"santa/assets/images/{i:03}.png" for i in range(40,41)]
 }
-BRICK_WIDTH = 80
+BRICK_WIDTH = 50
 BRICK_HEIGHT = 28
 BRICK_DELAY = 0.5
 BRICK_RATE = 4

@@ -1,10 +1,12 @@
+import random
 from game.casting.actor import Actor
+from game.casting.point import Point
 
 
 class Brick(Actor):
     """A solid, rectangular object that can be broken."""
 
-    def __init__(self, body, animation, points, debug = False):
+    def __init__(self, body, animation, points, cols = 60, rows = 40, cell_size = 15, debug = False):
         """Constructs a new Brick.
         
         Args:
@@ -16,6 +18,12 @@ class Brick(Actor):
         self._body = body
         self._animation = animation
         self._points = points
+        x = random.randint(1, cols - 1)
+        y = random.randint(1, rows - 1)
+        position = Point(x, y)
+        position = position.scale(cell_size)
+
+        
         
     def get_animation(self):
         """Gets the brick's image.
