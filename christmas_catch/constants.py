@@ -22,14 +22,14 @@ FIELD_LEFT = 0
 FIELD_RIGHT = SCREEN_WIDTH
 
 # FONT
-FONT_FILE = "santa/assets/fonts/zorque.otf"
+FONT_FILE = "christmas_catch/assets/fonts/zorque.otf"
 FONT_SMALL = 32
 FONT_LARGE = 48
 
 # SOUND
-BOUNCE_SOUND = "santa/assets/sounds/boing.wav"
-WELCOME_SOUND = "santa/assets/sounds/christmas.mp3"
-OVER_SOUND = "santa/assets/sounds/over.wav"
+BOUNCE_SOUND = "christmas_catch/assets/sounds/boing.wav"
+WELCOME_SOUND = "christmas_catch/assets/sounds/christmas.mp3"
+OVER_SOUND = "christmas_catch/assets/sounds/over.wav"
 
 # TEXT
 ALIGN_CENTER = 0
@@ -56,7 +56,7 @@ IN_PLAY = 3
 GAME_OVER = 4
 
 # LEVELS
-LEVEL_FILE = "santa/assets/data/level-{:03}.txt"
+LEVEL_FILE = "christmas_catch/assets/data/level-{:03}.txt"
 BASE_LEVELS = 5
 
 # -------------------------------------------------------------------------------------------------- 
@@ -92,7 +92,7 @@ SCORE_FORMAT = "SCORE: {}"
 
 # BALL
 BALL_GROUP = "balls"
-BALL_IMAGE = "santa/assets/images/000.png"
+BALL_IMAGE = "christmas_catch/assets/images/000.png"
 BALL_WIDTH = 28
 BALL_HEIGHT = 28
 BALL_VELOCITY = 3
@@ -101,7 +101,7 @@ MAX_Y = 600
 
 # RACKET
 RACKET_GROUP = "rackets"
-RACKET_IMAGES = [f"santa/assets/images/{n:03}.png" for n in range(100, 103)]
+RACKET_IMAGES = [f"christmas_catch/assets/images/{n:03}.png" for n in range(100, 103)]
 RACKET_WIDTH = 106
 RACKET_HEIGHT = 28
 RACKET_RATE = 6
@@ -111,10 +111,10 @@ RACKET_VELOCITY = 7
 # BRICK
 BRICK_GROUP = "bricks"
 BRICK_IMAGES = {
-    "b": [f"santa/assets/images/{i:03}.png" for i in range(10,11)],
-    "g": [f"santa/assets/images/{i:03}.png" for i in range(20,21)],
-    "p": [f"santa/assets/images/{i:03}.png" for i in range(30,31)],
-    "y": [f"santa/assets/images/{i:03}.png" for i in range(40,41)]
+    "b": [f"christmas_catch/assets/images/{i:03}.png" for i in range(10,11)],
+    "g": [f"christmas_catch/assets/images/{i:03}.png" for i in range(20,21)],
+    "p": [f"christmas_catch/assets/images/{i:03}.png" for i in range(30,31)],
+    "y": [f"christmas_catch/assets/images/{i:03}.png" for i in range(40,41)]
 }
 BRICK_WIDTH = 50
 BRICK_HEIGHT = 28
