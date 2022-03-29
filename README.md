@@ -1,5 +1,5 @@
-# Batter
-Batter is a clone of the classic breakout game.
+# Christmas Catch
+ADD description.
 
 ## Getting Started
 ---
