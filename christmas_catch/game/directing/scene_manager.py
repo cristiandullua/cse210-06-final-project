@@ -186,7 +186,10 @@ class SceneManager:
                     points = BRICK_POINTS 
                     
                     if frames == 1:
-                        points *= 2
+                        points *= 2                     
+
+                    else:
+                        points -= 150   
                     
                     position = Point(x, y)
                     size = Point(BRICK_WIDTH, BRICK_HEIGHT)
