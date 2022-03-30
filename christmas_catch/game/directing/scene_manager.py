@@ -183,10 +183,14 @@ class SceneManager:
                     y = random.randint(-200,-50)
                     color = column[0]
                     frames = int(column[1])
+                    
                     points = BRICK_POINTS 
                     
                     if frames == 1:
-                        points *= 2
+                        points *= 2                        
+                                              
+                    else:
+                        points -= 150                    
                     
                     position = Point(x, y)
                     size = Point(BRICK_WIDTH, BRICK_HEIGHT)
