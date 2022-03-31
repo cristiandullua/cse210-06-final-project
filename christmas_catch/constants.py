@@ -112,8 +112,8 @@ RACKET_VELOCITY = 7
 BRICK_GROUP = "bricks"
 BRICK_IMAGES = {
     "b": [f"christmas_catch/assets/images/{i:03}.png" for i in range(10,11)],
-    "g": [f"christmas_catch/assets/images/{i:03}.png" for i in range(20,21)],
-    "p": [f"christmas_catch/assets/images/{i:03}.png" for i in range(30,31)],
+    "g": [f"christmas_catch/assets/images/{i:03}.png" for i in range(104,105)],
+    "p": [f"christmas_catch/assets/images/{i:03}.png" for i in range(20,21)],
     "y": [f"christmas_catch/assets/images/{i:03}.png" for i in range(40,41)]
 }
 BRICK_WIDTH = 50
