@@ -33,7 +33,7 @@ class CollideBrickAction(Action):
                 points = brick.get_points()
                 stats.add_points(points)
                 cast.remove_actor(BRICK_GROUP, brick)
-            
+                
             elif y >= (SCREEN_HEIGHT):
                 stats = cast.get_first_actor(STATS_GROUP)
                 stats.lose_life()

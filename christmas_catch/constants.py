@@ -108,12 +108,12 @@ RACKET_RATE = 6
 RACKET_VELOCITY = 7
 
 
-# BRICK
+# BRICK/REGALOS
 BRICK_GROUP = "bricks"
 BRICK_IMAGES = {
     "b": [f"christmas_catch/assets/images/{i:03}.png" for i in range(10,11)],
-    "g": [f"christmas_catch/assets/images/{i:03}.png" for i in range(20,21)],
-    "p": [f"christmas_catch/assets/images/{i:03}.png" for i in range(30,31)],
+    "g": [f"christmas_catch/assets/images/{i:03}.png" for i in range(104,105)],
+    "p": [f"christmas_catch/assets/images/{i:03}.png" for i in range(20,21)],
     "y": [f"christmas_catch/assets/images/{i:03}.png" for i in range(40,41)]
 }
 BRICK_WIDTH = 50
@@ -121,6 +121,15 @@ BRICK_HEIGHT = 28
 BRICK_DELAY = 0.5
 BRICK_RATE = 4
 BRICK_POINTS = 50
+
+#COAL
+COAL_GROUP = "coals"
+COAL_IMAGE = "christmas_catch/assets/images/103.png"
+COAL_WIDTH = 50
+COAL_HEIGHT = 28
+COAL_DELAY = 0.5
+COAL_RATE = 4
+COAL_POINTS = 50
 
 # DIALOG
 DIALOG_GROUP = "dialogs"
