@@ -181,6 +181,7 @@ class SceneManager:
 
                     x = random.randint(0,1000)
                     y = random.randint(-200,-50)
+                
                     color = column[0]
                     frames = int(column[1])
                     
