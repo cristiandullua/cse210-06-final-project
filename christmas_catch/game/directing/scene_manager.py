@@ -194,8 +194,8 @@ class SceneManager:
             for r, row in enumerate(reader):
                 for c, column in enumerate(row):
 
-                    x = random.randint(0,1000)
-                    y = random.randint(-200,-50)
+                    x = random.randint(0,900)
+                    y = random.randint(-200,-100)
                     color = column[0]
                     frames = int(column[1])
                     
@@ -206,8 +206,7 @@ class SceneManager:
                         points *= 2                                         
                                               
                     else:
-                        points -= 150                    
-
+                        points -= 150
                     
                     position = Point(x, y)
                     size = Point(BRICK_WIDTH, BRICK_HEIGHT)
