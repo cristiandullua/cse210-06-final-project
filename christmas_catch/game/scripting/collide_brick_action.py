@@ -21,6 +21,7 @@ class CollideBrickAction(Action):
         x = position.get_x()
         y = position.get_y()       
         over_sound = Sound(OVER_SOUND)
+        red_gift = BRICK_IMAGES['p'] 
         
         for brick in bricks:
             boy_body = boy.get_body()
@@ -33,7 +34,12 @@ class CollideBrickAction(Action):
                 points = brick.get_points()
                 stats.add_points(points)
                 cast.remove_actor(BRICK_GROUP, brick)
-                
+            
+            # elif self._physics_service.has_collided(racket_body, red_gift):
+            #     points = brick.get_points()
+            #     stats.rest_point(points)
+            #     cast.remove_actor(BRICK_GROUP, brick)
+
             elif y >= (SCREEN_HEIGHT):
                 stats = cast.get_first_actor(STATS_GROUP)
                 stats.lose_life()

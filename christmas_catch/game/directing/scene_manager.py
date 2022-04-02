@@ -229,8 +229,10 @@ class SceneManager:
             for r, row in enumerate(reader):
                 for c, column in enumerate(row):
 
+
                     x = random.randint(0,900)
                     y = random.randint(-200,-100)
+
                     color = column[0]
                     frames = int(column[1])
                     

@@ -24,6 +24,9 @@ class Stats(Actor):
             points: A number representing the points to add.
         """
         self._score += points
+    
+    def rest_points(self, points):
+        self._score -= points
 
     def get_level(self):
         """Gets the level.
