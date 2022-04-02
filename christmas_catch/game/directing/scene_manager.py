@@ -137,7 +137,14 @@ class SceneManager:
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
         self._add_update_script(script)
-        self._add_output_script(script)
+        output_elements = [self.DRAW_BACKGROUND_ACTION,
+            self.DRAW_HUD_ACTION,
+            self.DRAW_BALL_ACTION,
+            self.DRAW_BRICKS_ACTION,
+            self.DRAW_BOY_ACTION,
+            self.DRAW_DIALOG_ACTION
+        ]
+        self._add_output_script(script, output_elements)
 
     def _prepare_in_play(self, cast, script):
         self._activate_ball(cast)
@@ -165,7 +172,16 @@ class SceneManager:
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(NEW_GAME, 5))
         script.clear_actions(UPDATE)
-        self._add_output_script(script)
+
+        output_elements = [self.DRAW_BACKGROUND_ACTION,
+            self.DRAW_HUD_ACTION,
+            self.DRAW_BALL_ACTION,
+            self.DRAW_BRICKS_ACTION,
+            self.DRAW_BOY_ACTION,
+            self.DRAW_DIALOG_ACTION
+        ]
+
+        self._add_output_script(script, output_elements)
 
     # ----------------------------------------------------------------------------------------------
     # casting methods
