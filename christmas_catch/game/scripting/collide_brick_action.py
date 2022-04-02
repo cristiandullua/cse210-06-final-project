@@ -11,7 +11,7 @@ class CollideBrickAction(Action):
         
     def execute(self, cast, script, callback):
         #ball = cast.get_first_actor(BALL_GROUP)
-        racket = cast.get_first_actor(RACKET_GROUP)
+        boy = cast.get_first_actor(BOY_GROUP)
         bricks = cast.get_actors(BRICK_GROUP)
         stats = cast.get_first_actor(STATS_GROUP)
         
@@ -24,10 +24,10 @@ class CollideBrickAction(Action):
         red_gift = BRICK_IMAGES['p'] 
         
         for brick in bricks:
-            racket_body = racket.get_body()
+            boy_body = boy.get_body()
             brick_body = brick.get_body()
 
-            if self._physics_service.has_collided(racket_body, brick_body):
+            if self._physics_service.has_collided(boy_body, brick_body):
                 #ball.bounce_y()
                 sound = Sound(BOUNCE_SOUND)
                 self._audio_service.play_sound(sound)
