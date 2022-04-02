@@ -1,2 +1,2 @@
-b1, b1, b1, b1, b1, b1, b1, b1, b1, b1, b1, b1, b1
-g1, g1, g1, g1, g1, g1, g1, g1, g1, g1, g1, g1, g1
+b1, g1, b1, b1, b1, g1, b1, b1, g1, b1, g1, b1, b1
+g1, g1, g1, g1, b1, g1, g1, g1, g1, g1, b1, g1, g1
