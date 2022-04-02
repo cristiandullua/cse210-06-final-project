@@ -76,6 +76,10 @@ RELEASE = 6
 # CASTING CONSTANTS
 # -------------------------------------------------------------------------------------------------- 
 
+# BACKGROUND
+BACKGROUND_GROUP = "background"
+BACKGROUND_IMAGE = "christmas_catch/assets/images/background.png"
+
 # STATS
 STATS_GROUP = "stats"
 DEFAULT_LIVES = 3
@@ -99,13 +103,13 @@ BALL_VELOCITY = 3
 MAX_X = 900
 MAX_Y = 600
 
-# RACKET
-RACKET_GROUP = "rackets"
-RACKET_IMAGES = [f"christmas_catch/assets/images/{n:03}.png" for n in range(100, 103)]
-RACKET_WIDTH = 106
-RACKET_HEIGHT = 28
-RACKET_RATE = 6
-RACKET_VELOCITY = 7
+# BOY
+BOY_GROUP = "boys"
+BOY_IMAGES = [f"christmas_catch/assets/images/{n:03}.png" for n in range(100, 103)]
+BOY_WIDTH = 120
+BOY_HEIGHT = 161
+BOY_RATE = 6
+BOY_VELOCITY = 7
 
 
 # BRICK/REGALOS
