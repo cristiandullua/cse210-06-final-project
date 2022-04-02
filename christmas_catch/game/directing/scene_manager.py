@@ -90,6 +90,22 @@ class SceneManager:
     # ----------------------------------------------------------------------------------------------
     
     def _prepare_new_game(self, cast, script):
+        self._add_dialog(cast, ENTER_TO_START)
+        self._add_background(cast, MENU_IMAGE)
+
+        output_elements = [self.DRAW_BACKGROUND_ACTION,
+            self.DRAW_DIALOG_ACTION
+        ]
+
+        self._add_initialize_script(script)
+        self._add_load_script(script)
+        script.clear_actions(INPUT)
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, NEXT_LEVEL))
+        self._add_output_script(script, output_elements)
+        self._add_unload_script(script)
+        self._add_release_script(script)
+        
+    def _prepare_next_level(self, cast, script):
         self._add_stats(cast)
         self._add_level(cast)
         self._add_lives(cast)
@@ -97,26 +113,20 @@ class SceneManager:
         self._add_ball(cast)
         self._add_bricks(cast)
         self._add_boy(cast)
-        self._add_dialog(cast, ENTER_TO_START)
-        self._add_background(cast)
-
-        self._add_initialize_script(script)
-        self._add_load_script(script)
-        script.clear_actions(INPUT)
-        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, NEXT_LEVEL))
-        self._add_output_script(script)
-        self._add_unload_script(script)
-        self._add_release_script(script)
-        
-    def _prepare_next_level(self, cast, script):
-        self._add_ball(cast)
-        self._add_bricks(cast)
-        self._add_boy(cast)
+        self._add_background(cast, BACKGROUND_IMAGE)
         self._add_dialog(cast, PREP_TO_LAUNCH)
+
+        output_elements = [self.DRAW_BACKGROUND_ACTION,
+            self.DRAW_HUD_ACTION,
+            self.DRAW_BALL_ACTION,
+            self.DRAW_BRICKS_ACTION,
+            self.DRAW_BOY_ACTION,
+            self.DRAW_DIALOG_ACTION
+        ]
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
-        self._add_output_script(script)
+        self._add_output_script(script, output_elements)
         script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, WELCOME_SOUND))
         
     def _prepare_try_again(self, cast, script):
@@ -136,7 +146,16 @@ class SceneManager:
         script.clear_actions(INPUT)
         script.add_action(INPUT, self.CONTROL_BOY_ACTION)
         self._add_update_script(script)
-        self._add_output_script(script)
+
+        output_elements = [self.DRAW_BACKGROUND_ACTION,
+            self.DRAW_HUD_ACTION,
+            self.DRAW_BALL_ACTION,
+            self.DRAW_BRICKS_ACTION,
+            self.DRAW_BOY_ACTION,
+            self.DRAW_DIALOG_ACTION
+        ]
+
+        self._add_output_script(script, output_elements)
 
     def _prepare_game_over(self, cast, script):
         self._add_ball(cast)
@@ -156,14 +175,14 @@ class SceneManager:
         ball = cast.get_first_actor(BALL_GROUP)
         #ball.release()
 
-    def _add_background(self, cast):
+    def _add_background(self, cast, image_path):
         cast.clear_actors(BACKGROUND_GROUP)
         x = (0)
         y = (0)
         position = Point(x, y)
         size = Point(SCREEN_WIDTH, SCREEN_HEIGHT)
         body = Body(position, size)
-        image = Image(BACKGROUND_IMAGE)
+        image = Image(image_path)
         background = Background(body, image, True)
         cast.add_actor(BACKGROUND_GROUP, background)
 
@@ -276,15 +295,18 @@ class SceneManager:
         script.clear_actions(LOAD)
         script.add_action(LOAD, self.LOAD_ASSETS_ACTION)
     
-    def _add_output_script(self, script):
+    def _add_output_script(self, script, list):
         script.clear_actions(OUTPUT)
         script.add_action(OUTPUT, self.START_DRAWING_ACTION)
-        script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
-        script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
-        script.add_action(OUTPUT, self.DRAW_BALL_ACTION)
-        script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
-        script.add_action(OUTPUT, self.DRAW_BOY_ACTION)
-        script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
+
+        for i in list:
+            script.add_action(OUTPUT, i)
+#        script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
+#        script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
+#        script.add_action(OUTPUT, self.DRAW_BALL_ACTION)
+#        script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
+#        script.add_action(OUTPUT, self.DRAW_BOY_ACTION)
+#        script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 
     def _add_release_script(self, script):

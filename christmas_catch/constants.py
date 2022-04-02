@@ -23,8 +23,10 @@ FIELD_RIGHT = SCREEN_WIDTH
 
 # FONT
 FONT_FILE = "christmas_catch/assets/fonts/zorque.otf"
+FONT_FILE_LOGO = "christmas_catch/assets/fonts/logo_font.otf"
 FONT_SMALL = 32
 FONT_LARGE = 48
+FONT_SIZE_LOGO = 60
 
 # SOUND
 BOUNCE_SOUND = "christmas_catch/assets/sounds/boing.wav"
@@ -79,6 +81,7 @@ RELEASE = 6
 # BACKGROUND
 BACKGROUND_GROUP = "background"
 BACKGROUND_IMAGE = "christmas_catch/assets/images/background.png"
+MENU_IMAGE = "christmas_catch/assets/images/menu_background.png"
 
 # STATS
 STATS_GROUP = "stats"
