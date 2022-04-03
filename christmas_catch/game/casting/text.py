@@ -10,7 +10,16 @@ class Text:
         self._fontfile = fontfile
         self._size = size
         self._alignment = alignment
+        self._color = BLACK
+
+    def get_color(self):
+        """Gets the color for the text.
         
+        Returns:
+            A RGB numbers representing a color.
+        """
+        return self._color
+
     def get_alignment(self):
         """Gets the alignment for the text.
         
