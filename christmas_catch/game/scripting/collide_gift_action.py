@@ -3,7 +3,7 @@ from game.casting.sound import Sound
 from game.scripting.action import Action
 
 
-class CollideBrickAction(Action):
+class CollideGiftAction(Action):
 
     def __init__(self, physics_service, audio_service):
         self._physics_service = physics_service
@@ -12,33 +12,33 @@ class CollideBrickAction(Action):
     def execute(self, cast, script, callback):
         #ball = cast.get_first_actor(BALL_GROUP)
         boy = cast.get_first_actor(BOY_GROUP)
-        bricks = cast.get_actors(BRICK_GROUP)
+        gifts = cast.get_actors(GIFT_GROUP)
         stats = cast.get_first_actor(STATS_GROUP)
         
-        brick = cast.get_first_actor(BRICK_GROUP)
-        body = brick.get_body()
+        gift = cast.get_first_actor(GIFT_GROUP)
+        body = gift.get_body()
         position = body.get_position()
         x = position.get_x()
         y = position.get_y()       
         over_sound = Sound(OVER_SOUND)
-        red_gift = BRICK_IMAGES['p'] 
+        red_gift = GIFT_IMAGES['p'] 
         
-        for brick in bricks:
+        for gift in gifts:
             boy_body = boy.get_body()
-            brick_body = brick.get_body()
+            gift_body = gift.get_body()
 
-            if self._physics_service.has_collided(boy_body, brick_body):
+            if self._physics_service.has_collided(boy_body, gift_body):
                 #ball.bounce_y()
                 sound = Sound(BOUNCE_SOUND)
                 self._audio_service.play_sound(sound)
-                points = brick.get_points()
+                points = gift.get_points()
                 stats.add_points(points)
-                cast.remove_actor(BRICK_GROUP, brick)
+                cast.remove_actor(GIFT_GROUP, gift)
             
             # elif self._physics_service.has_collided(racket_body, red_gift):
-            #     points = brick.get_points()
+            #     points = gift.get_points()
             #     stats.rest_point(points)
-            #     cast.remove_actor(BRICK_GROUP, brick)
+            #     cast.remove_actor(GIFT_GROUP, gift)
 
             elif y >= (SCREEN_HEIGHT):
                 stats = cast.get_first_actor(STATS_GROUP)

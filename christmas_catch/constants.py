@@ -23,7 +23,7 @@ FIELD_RIGHT = SCREEN_WIDTH
 
 # FONT
 FONT_FILE = "christmas_catch/assets/fonts/zorque.otf"
-FONT_FILE_LOGO = "christmas_catch/assets/fonts/logo_font.otf"
+FONT_FILE_LOGO = "christmas_catch/assets/fonts/font_logo.otf"
 FONT_SMALL = 32
 FONT_LARGE = 48
 FONT_SIZE_LOGO = 60
@@ -114,20 +114,19 @@ BOY_HEIGHT = 161
 BOY_RATE = 6
 BOY_VELOCITY = 7
 
-
-# BRICK/REGALOS
-BRICK_GROUP = "bricks"
-BRICK_IMAGES = {
+# GIFT/REGALOS
+GIFT_GROUP = "gifts"
+GIFT_IMAGES = {
     "b": [f"christmas_catch/assets/images/{i:03}.png" for i in range(10,11)],
     "g": [f"christmas_catch/assets/images/{i:03}.png" for i in range(104,105)],
     "p": [f"christmas_catch/assets/images/{i:03}.png" for i in range(104,105)],
     "y": [f"christmas_catch/assets/images/{i:03}.png" for i in range(104,105)]
 }
-BRICK_WIDTH = 50
-BRICK_HEIGHT = 28
-BRICK_DELAY = 0.5
-BRICK_RATE = 4
-BRICK_POINTS = 50
+GIFT_WIDTH = 50
+GIFT_HEIGHT = 28
+GIFT_DELAY = 0.5
+GIFT_RATE = 4
+GIFT_POINTS = 50
 
 #COAL
 COAL_GROUP = "coals"

@@ -3,11 +3,11 @@ from game.casting.actor import Actor
 from game.casting.point import Point
 
 
-class Brick(Actor):
+class Gift(Actor):
     """A solid, rectangular object that can be broken."""
 
     def __init__(self, body, animation, points, cols = 60, rows = 40, cell_size = 15, debug = False):
-        """Constructs a new Brick.
+        """Constructs a new Gift.
         
         Args:
             body: A new instance of Body.
@@ -26,7 +26,7 @@ class Brick(Actor):
         
         
     def get_animation(self):
-        """Gets the brick's image.
+        """Gets the gift's image.
         
         Returns:
             An instance of Image.
@@ -34,7 +34,7 @@ class Brick(Actor):
         return self._animation
 
     def get_body(self):
-        """Gets the brick's body.
+        """Gets the gift's body.
         
         Returns:
             An instance of Body.
@@ -42,9 +42,9 @@ class Brick(Actor):
         return self._body
 
     def get_points(self):
-        """Gets the brick's points.
+        """Gets the gift's points.
         
         Returns:
-            A number representing the brick's points.
+            A number representing the gift's points.
         """
         return self._points

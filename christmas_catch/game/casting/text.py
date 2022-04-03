@@ -10,7 +10,7 @@ class Text:
         self._fontfile = fontfile
         self._size = size
         self._alignment = alignment
-
+        
     def get_alignment(self):
         """Gets the alignment for the text.
         

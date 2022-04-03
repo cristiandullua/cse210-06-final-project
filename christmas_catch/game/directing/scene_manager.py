@@ -1,10 +1,11 @@
 import csv
+from pickle import TRUE
 from constants import *
 import random
 from game.casting.animation import Animation
 from game.casting.ball import Ball
 from game.casting.body import Body
-from game.casting.brick import Brick
+from game.casting.gift import Gift
 from game.casting.image import Image
 from game.casting.label import Label
 from game.casting.point import Point
@@ -15,12 +16,12 @@ from game.casting.background import Background
 from game.scripting.change_scene_action import ChangeSceneAction
 from game.scripting.check_over_action import CheckOverAction
 from game.scripting.collide_borders_action import CollideBordersAction
-from game.scripting.collide_brick_action import CollideBrickAction
+from game.scripting.collide_gift_action import CollideGiftAction
 from game.scripting.collide_boy_action import CollideBoyAction
 from game.scripting.control_boy_action import ControlBoyAction
 from game.scripting.draw_background_action import DrawBackgroundAction
 from game.scripting.draw_ball_action import DrawBallAction
-from game.scripting.draw_bricks_action import DrawBricksAction
+from game.scripting.draw_gifts_action import DrawGiftsAction
 from game.scripting.draw_dialog_action import DrawDialogAction
 from game.scripting.draw_hud_action import DrawHudAction
 from game.scripting.draw_boy_action import DrawBoyAction
@@ -34,7 +35,7 @@ from game.scripting.release_devices_action import ReleaseDevicesAction
 from game.scripting.start_drawing_action import StartDrawingAction
 from game.scripting.timed_change_scene_action import TimedChangeSceneAction
 from game.scripting.unload_assets_action import UnloadAssetsAction
-from game.scripting.move_bricks_action import MoveBricksAction
+from game.scripting.move_gifts_action import MoveGiftsAction
 from game.services.raylib.raylib_audio_service import RaylibAudioService
 from game.services.raylib.raylib_keyboard_service import RaylibKeyboardService
 from game.services.raylib.raylib_physics_service import RaylibPhysicsService
@@ -51,12 +52,12 @@ class SceneManager:
 
     CHECK_OVER_ACTION = CheckOverAction()
     COLLIDE_BORDERS_ACTION = CollideBordersAction(PHYSICS_SERVICE, AUDIO_SERVICE)
-    COLLIDE_BRICKS_ACTION = CollideBrickAction(PHYSICS_SERVICE, AUDIO_SERVICE)
+    COLLIDE_GIFTS_ACTION = CollideGiftAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     COLLIDE_BOY_ACTION = CollideBoyAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     CONTROL_BOY_ACTION = ControlBoyAction(KEYBOARD_SERVICE)
     DRAW_BACKGROUND_ACTION = DrawBackgroundAction(VIDEO_SERVICE)
     DRAW_BALL_ACTION = DrawBallAction(VIDEO_SERVICE)
-    DRAW_BRICKS_ACTION = DrawBricksAction(VIDEO_SERVICE)
+    DRAW_GIFTS_ACTION = DrawGiftsAction(VIDEO_SERVICE)
     DRAW_DIALOG_ACTION = DrawDialogAction(VIDEO_SERVICE)
     DRAW_HUD_ACTION = DrawHudAction(VIDEO_SERVICE)
     DRAW_BOY_ACTION= DrawBoyAction(VIDEO_SERVICE)
@@ -65,7 +66,7 @@ class SceneManager:
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
     MOVE_BALL_ACTION = MoveBallAction()
     MOVE_BOY_ACTION = MoveBoyAction()
-    MOVE_BRICKS_ACTION = MoveBricksAction()
+    MOVE_GIFTS_ACTION = MoveGiftsAction()
     RELEASE_DEVICES_ACTION = ReleaseDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     START_DRAWING_ACTION = StartDrawingAction(VIDEO_SERVICE)
     UNLOAD_ASSETS_ACTION = UnloadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -90,11 +91,13 @@ class SceneManager:
     # ----------------------------------------------------------------------------------------------
     
     def _prepare_new_game(self, cast, script):
-        self._add_dialog(cast, ENTER_TO_START)
+        self._add_dialog(cast, GAME_NAME, FONT_FILE_LOGO, FONT_SIZE_LOGO, ALIGN_CENTER, Point(CENTER_X, 0))
+        self._add_dialog(cast, ENTER_TO_START, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y), True)
         self._add_background(cast, MENU_IMAGE)
 
-        output_elements = [self.DRAW_BACKGROUND_ACTION,
-            self.DRAW_DIALOG_ACTION
+        output_elements = [
+            self.DRAW_BACKGROUND_ACTION,
+            self.DRAW_DIALOG_ACTION, 
         ]
 
         self._add_initialize_script(script)
@@ -111,15 +114,15 @@ class SceneManager:
         self._add_lives(cast)
         self._add_score(cast)
         self._add_ball(cast)
-        self._add_bricks(cast)
+        self._add_gifts(cast)
         self._add_boy(cast)
         self._add_background(cast, BACKGROUND_IMAGE)
-        self._add_dialog(cast, PREP_TO_LAUNCH)
+        self._add_dialog(cast, PREP_TO_LAUNCH, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
 
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
             self.DRAW_BALL_ACTION,
-            self.DRAW_BRICKS_ACTION,
+            self.DRAW_GIFTS_ACTION,
             self.DRAW_BOY_ACTION,
             self.DRAW_DIALOG_ACTION
         ]
@@ -132,7 +135,7 @@ class SceneManager:
     def _prepare_try_again(self, cast, script):
         self._add_ball(cast)
         self._add_boy(cast)
-        self._add_dialog(cast, PREP_TO_LAUNCH)
+        self._add_dialog(cast, PREP_TO_LAUNCH, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
@@ -140,7 +143,7 @@ class SceneManager:
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
             self.DRAW_BALL_ACTION,
-            self.DRAW_BRICKS_ACTION,
+            self.DRAW_GIFTS_ACTION,
             self.DRAW_BOY_ACTION,
             self.DRAW_DIALOG_ACTION
         ]
@@ -157,7 +160,7 @@ class SceneManager:
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
             self.DRAW_BALL_ACTION,
-            self.DRAW_BRICKS_ACTION,
+            self.DRAW_GIFTS_ACTION,
             self.DRAW_BOY_ACTION,
             self.DRAW_DIALOG_ACTION
         ]
@@ -167,7 +170,7 @@ class SceneManager:
     def _prepare_game_over(self, cast, script):
         self._add_ball(cast)
         self._add_boy(cast)
-        self._add_dialog(cast, WAS_GOOD_GAME)
+        self._add_dialog(cast, WAS_GOOD_GAME, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(NEW_GAME, 5))
@@ -176,7 +179,7 @@ class SceneManager:
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
             self.DRAW_BALL_ACTION,
-            self.DRAW_BRICKS_ACTION,
+            self.DRAW_GIFTS_ACTION,
             self.DRAW_BOY_ACTION,
             self.DRAW_DIALOG_ACTION
         ]
@@ -214,8 +217,8 @@ class SceneManager:
         ball = Ball(body, image, True)
         cast.add_actor(BALL_GROUP, ball)
 
-    def _add_bricks(self, cast):
-        cast.clear_actors(BRICK_GROUP)
+    def _add_gifts(self, cast):
+        cast.clear_actors(GIFT_GROUP)
         
         stats = cast.get_first_actor(STATS_GROUP)
         level = stats.get_level() % BASE_LEVELS
@@ -236,7 +239,7 @@ class SceneManager:
                     color = column[0]
                     frames = int(column[1])
                     
-                    points = BRICK_POINTS 
+                    points = GIFT_POINTS 
                     
                     if frames == 1:
 
@@ -246,21 +249,20 @@ class SceneManager:
                         points -= 150
                     
                     position = Point(x, y)
-                    size = Point(BRICK_WIDTH, BRICK_HEIGHT)
+                    size = Point(GIFT_WIDTH, GIFT_HEIGHT)
                     velocity = Point(0, 0 + 3)
-                    images = BRICK_IMAGES[color][0:frames]
+                    images = GIFT_IMAGES[color][0:frames]
 
                     body = Body(position, size, velocity)
-                    animation = Animation(images, BRICK_RATE, BRICK_DELAY)
+                    animation = Animation(images, GIFT_RATE, GIFT_DELAY)
 
-                    brick = Brick(body, animation, points, cols, rows)
-                    cast.add_actor(BRICK_GROUP, brick)
+                    gift = Gift(body, animation, points, cols, rows)
+                    cast.add_actor(GIFT_GROUP, gift)
 
-    def _add_dialog(self, cast, message):
-        cast.clear_actors(DIALOG_GROUP)
-        text = Text(message, FONT_FILE, FONT_SMALL, ALIGN_CENTER)
-        position = Point(CENTER_X, CENTER_Y)
-        label = Label(text, position)
+    def _add_dialog(self, cast, message, file, size, alignment, p_position, multiple=False):
+        if multiple == False:
+            cast.clear_actors(DIALOG_GROUP)
+        label = Label(Text(message, file, size, alignment), p_position)
         cast.add_actor(DIALOG_GROUP, label)
 
     def _add_level(self, cast):
@@ -321,7 +323,7 @@ class SceneManager:
 #        script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
 #        script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
 #        script.add_action(OUTPUT, self.DRAW_BALL_ACTION)
-#        script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
+#        script.add_action(OUTPUT, self.DRAW_GIFTS_ACTION)
 #        script.add_action(OUTPUT, self.DRAW_BOY_ACTION)
 #        script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
@@ -337,10 +339,10 @@ class SceneManager:
     def _add_update_script(self, script):
         script.clear_actions(UPDATE)
         script.add_action(UPDATE, self.MOVE_BALL_ACTION)
-        script.add_action(UPDATE, self.MOVE_BRICKS_ACTION)
+        script.add_action(UPDATE, self.MOVE_GIFTS_ACTION)
         script.add_action(UPDATE, self.MOVE_BOY_ACTION)
         script.add_action(UPDATE, self.COLLIDE_BORDERS_ACTION)
-        script.add_action(UPDATE, self.COLLIDE_BRICKS_ACTION)
+        script.add_action(UPDATE, self.COLLIDE_GIFTS_ACTION)
         script.add_action(UPDATE, self.COLLIDE_BOY_ACTION)
         script.add_action(UPDATE, self.MOVE_BOY_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
