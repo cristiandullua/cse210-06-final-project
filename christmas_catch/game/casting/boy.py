@@ -4,7 +4,7 @@ from game.casting.point import Point
 
 
 class Boy(Actor):
-    """A implement used to hit and bounce the ball in the game."""
+    """A implement used to hit and bounce the santa in the game."""
     
     def __init__(self, body, animation, debug = False):
         """Constructs a new Bat.

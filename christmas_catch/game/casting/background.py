@@ -19,7 +19,7 @@ class Background(Actor):
         self._position = Point(0, 0)
 
     def get_image(self):
-        """Gets the ball's image.
+        """Gets the santa's image.
         
         Returns:
             An instance of Image.
@@ -27,7 +27,7 @@ class Background(Actor):
         return self._image
 
     def get_body(self):
-        """Gets the ball's body.
+        """Gets the santa's body.
         
         Returns:
             An instance of Body.

@@ -10,7 +10,7 @@ class CollideGiftAction(Action):
         self._audio_service = audio_service
         
     def execute(self, cast, script, callback):
-        #ball = cast.get_first_actor(BALL_GROUP)
+        #santa = cast.get_first_actor(SANTA_GROUP)
         boy = cast.get_first_actor(BOY_GROUP)
         gifts = cast.get_actors(GIFT_GROUP)
         stats = cast.get_first_actor(STATS_GROUP)
@@ -28,7 +28,7 @@ class CollideGiftAction(Action):
             gift_body = gift.get_body()
 
             if self._physics_service.has_collided(boy_body, gift_body):
-                #ball.bounce_y()
+                #santa.bounce_y()
                 sound = Sound(BOUNCE_SOUND)
                 self._audio_service.play_sound(sound)
                 points = gift.get_points()

@@ -10,13 +10,13 @@ class CollideBoyAction(Action):
         self._audio_service = audio_service
         
     def execute(self, cast, script, callback):
-        ball = cast.get_first_actor(BALL_GROUP)
+        santa = cast.get_first_actor(SANTA_GROUP)
         boy = cast.get_first_actor(BOY_GROUP)
         
-        ball_body = ball.get_body()
+        santa_body = santa.get_body()
         boy_body = boy.get_body()
 
-        if self._physics_service.has_collided(ball_body, boy_body):
-            #ball.bounce_y()
+        if self._physics_service.has_collided(santa_body, boy_body):
+            #santa.bounce_y()
             sound = Sound(BOUNCE_SOUND)
             self._audio_service.play_sound(sound)    

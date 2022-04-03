@@ -97,12 +97,12 @@ LEVEL_FORMAT = "LEVEL: {}"
 LIVES_FORMAT = "LIVES: {}"
 SCORE_FORMAT = "SCORE: {}"
 
-# BALL
-BALL_GROUP = "balls"
-BALL_IMAGE = "christmas_catch/assets/images/000.png"
-BALL_WIDTH = 28
-BALL_HEIGHT = 28
-BALL_VELOCITY = 3
+# SANTA
+SANTA_GROUP = "santas"
+SANTA_IMAGE = "christmas_catch/assets/images/000.png"
+SANTA_WIDTH = 28
+SANTA_HEIGHT = 28
+SANTA_VELOCITY = 3
 MAX_X = 900
 MAX_Y = 600
 

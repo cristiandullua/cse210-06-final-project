@@ -3,7 +3,7 @@ from pickle import TRUE
 from constants import *
 import random
 from game.casting.animation import Animation
-from game.casting.ball import Ball
+from game.casting.santa import Santa
 from game.casting.body import Body
 from game.casting.gift import Gift
 from game.casting.image import Image
@@ -20,7 +20,7 @@ from game.scripting.collide_gift_action import CollideGiftAction
 from game.scripting.collide_boy_action import CollideBoyAction
 from game.scripting.control_boy_action import ControlBoyAction
 from game.scripting.draw_background_action import DrawBackgroundAction
-from game.scripting.draw_ball_action import DrawBallAction
+from game.scripting.draw_santa_action import DrawSantaAction
 from game.scripting.draw_gifts_action import DrawGiftsAction
 from game.scripting.draw_dialog_action import DrawDialogAction
 from game.scripting.draw_hud_action import DrawHudAction
@@ -28,7 +28,7 @@ from game.scripting.draw_boy_action import DrawBoyAction
 from game.scripting.end_drawing_action import EndDrawingAction
 from game.scripting.initialize_devices_action import InitializeDevicesAction
 from game.scripting.load_assets_action import LoadAssetsAction
-from game.scripting.move_ball_action import MoveBallAction
+from game.scripting.move_santa_action import MoveSantaAction
 from game.scripting.move_boy_action import MoveBoyAction
 from game.scripting.play_sound_action import PlaySoundAction
 from game.scripting.release_devices_action import ReleaseDevicesAction
@@ -56,7 +56,7 @@ class SceneManager:
     COLLIDE_BOY_ACTION = CollideBoyAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     CONTROL_BOY_ACTION = ControlBoyAction(KEYBOARD_SERVICE)
     DRAW_BACKGROUND_ACTION = DrawBackgroundAction(VIDEO_SERVICE)
-    DRAW_BALL_ACTION = DrawBallAction(VIDEO_SERVICE)
+    DRAW_SANTA_ACTION = DrawSantaAction(VIDEO_SERVICE)
     DRAW_GIFTS_ACTION = DrawGiftsAction(VIDEO_SERVICE)
     DRAW_DIALOG_ACTION = DrawDialogAction(VIDEO_SERVICE)
     DRAW_HUD_ACTION = DrawHudAction(VIDEO_SERVICE)
@@ -64,7 +64,7 @@ class SceneManager:
     END_DRAWING_ACTION = EndDrawingAction(VIDEO_SERVICE)
     INITIALIZE_DEVICES_ACTION = InitializeDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
-    MOVE_BALL_ACTION = MoveBallAction()
+    MOVE_SANTA_ACTION = MoveSantaAction()
     MOVE_BOY_ACTION = MoveBoyAction()
     MOVE_GIFTS_ACTION = MoveGiftsAction()
     RELEASE_DEVICES_ACTION = ReleaseDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -113,7 +113,7 @@ class SceneManager:
         self._add_level(cast)
         self._add_lives(cast)
         self._add_score(cast)
-        self._add_ball(cast)
+        self._add_santa(cast)
         self._add_gifts(cast)
         self._add_boy(cast)
         self._add_background(cast, BACKGROUND_IMAGE)
@@ -121,7 +121,7 @@ class SceneManager:
 
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
-            self.DRAW_BALL_ACTION,
+            self.DRAW_SANTA_ACTION,
             self.DRAW_GIFTS_ACTION,
             self.DRAW_BOY_ACTION,
             self.DRAW_DIALOG_ACTION
@@ -133,7 +133,7 @@ class SceneManager:
         script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, WELCOME_SOUND))
         
     def _prepare_try_again(self, cast, script):
-        self._add_ball(cast)
+        self._add_santa(cast)
         self._add_boy(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
 
@@ -142,7 +142,7 @@ class SceneManager:
         self._add_update_script(script)
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
-            self.DRAW_BALL_ACTION,
+            self.DRAW_SANTA_ACTION,
             self.DRAW_GIFTS_ACTION,
             self.DRAW_BOY_ACTION,
             self.DRAW_DIALOG_ACTION
@@ -150,7 +150,7 @@ class SceneManager:
         self._add_output_script(script, output_elements)
 
     def _prepare_in_play(self, cast, script):
-        self._activate_ball(cast)
+        self._activate_santa(cast)
         cast.clear_actors(DIALOG_GROUP)
 
         script.clear_actions(INPUT)
@@ -159,7 +159,7 @@ class SceneManager:
 
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
-            self.DRAW_BALL_ACTION,
+            self.DRAW_SANTA_ACTION,
             self.DRAW_GIFTS_ACTION,
             self.DRAW_BOY_ACTION,
             self.DRAW_DIALOG_ACTION
@@ -168,7 +168,7 @@ class SceneManager:
         self._add_output_script(script, output_elements)
 
     def _prepare_game_over(self, cast, script):
-        self._add_ball(cast)
+        self._add_santa(cast)
         self._add_boy(cast)
         self._add_dialog(cast, WAS_GOOD_GAME, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
 
@@ -178,7 +178,7 @@ class SceneManager:
 
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
-            self.DRAW_BALL_ACTION,
+            self.DRAW_SANTA_ACTION,
             self.DRAW_GIFTS_ACTION,
             self.DRAW_BOY_ACTION,
             self.DRAW_DIALOG_ACTION
@@ -190,9 +190,9 @@ class SceneManager:
     # casting methods
     # ----------------------------------------------------------------------------------------------
     
-    def _activate_ball(self, cast):
-        ball = cast.get_first_actor(BALL_GROUP)
-        #ball.release()
+    def _activate_santa(self, cast):
+        santa = cast.get_first_actor(SANTA_GROUP)
+        #santa.release()
 
     def _add_background(self, cast, image_path):
         cast.clear_actors(BACKGROUND_GROUP)
@@ -205,17 +205,17 @@ class SceneManager:
         background = Background(body, image, True)
         cast.add_actor(BACKGROUND_GROUP, background)
 
-    def _add_ball(self, cast):
-        cast.clear_actors(BALL_GROUP)
+    def _add_santa(self, cast):
+        cast.clear_actors(SANTA_GROUP)
         x = (0)
         y = (50)
         position = Point(x, y)
-        size = Point(BALL_WIDTH, BALL_HEIGHT)
+        size = Point(SANTA_WIDTH, SANTA_HEIGHT)
         velocity = Point(3, 0)
         body = Body(position, size, velocity)
-        image = Image(BALL_IMAGE)
-        ball = Ball(body, image, True)
-        cast.add_actor(BALL_GROUP, ball)
+        image = Image(SANTA_IMAGE)
+        santa = Santa(body, image, True)
+        cast.add_actor(SANTA_GROUP, santa)
 
     def _add_gifts(self, cast):
         cast.clear_actors(GIFT_GROUP)
@@ -322,7 +322,7 @@ class SceneManager:
             script.add_action(OUTPUT, i)
 #        script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
 #        script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
-#        script.add_action(OUTPUT, self.DRAW_BALL_ACTION)
+#        script.add_action(OUTPUT, self.DRAW_SANTA_ACTION)
 #        script.add_action(OUTPUT, self.DRAW_GIFTS_ACTION)
 #        script.add_action(OUTPUT, self.DRAW_BOY_ACTION)
 #        script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
@@ -338,7 +338,7 @@ class SceneManager:
         
     def _add_update_script(self, script):
         script.clear_actions(UPDATE)
-        script.add_action(UPDATE, self.MOVE_BALL_ACTION)
+        script.add_action(UPDATE, self.MOVE_SANTA_ACTION)
         script.add_action(UPDATE, self.MOVE_GIFTS_ACTION)
         script.add_action(UPDATE, self.MOVE_BOY_ACTION)
         script.add_action(UPDATE, self.COLLIDE_BORDERS_ACTION)

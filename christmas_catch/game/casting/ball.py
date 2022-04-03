@@ -5,11 +5,11 @@ from game.casting.point import Point
 
 velocity = 6
 
-class Ball(Actor):
+class Santa(Actor):
     """A solid, spherical object that is bounced around in the game."""
     
     def __init__(self, body, image, debug = False):
-        """Constructs a new Ball.
+        """Constructs a new Santa.
 
         Args:
             body: A new instance of Body.
@@ -23,7 +23,7 @@ class Ball(Actor):
         self._velocity = Point(0, 0)
 
     def bounce_x(self):
-        """Bounces the ball in the x direction."""
+        """Bounces the santa in the x direction."""
         velocity = self._body.get_velocity()
         rn = random.uniform(0.9, 0)
         vx = velocity.get_x() * -1
@@ -32,7 +32,7 @@ class Ball(Actor):
         self._body.set_velocity(velocity)
 
     def bounce_y(self):
-        """Bounces the ball in the y direction"""
+        """Bounces the santa in the y direction"""
         velocity = self._body.get_velocity()
         #rn = random.uniform(0.9, 1.1)
         vx = velocity.get_x()
@@ -41,7 +41,7 @@ class Ball(Actor):
         self._body.set_velocity(velocity)
 
     def get_body(self):
-        """Gets the ball's body.
+        """Gets the santa's body.
         
         Returns:
             An instance of Body.
@@ -49,7 +49,7 @@ class Ball(Actor):
         return self._body
 
     def get_image(self):
-        """Gets the ball's image.
+        """Gets the santa's image.
         
         Returns:
             An instance of Image.
@@ -57,9 +57,9 @@ class Ball(Actor):
         return self._image
         
     """def release(self):
-        Release the ball in a random direction.
+        Release the santa in a random direction.
         rn = random.uniform(0.9, 1.1)
-        vx = random.choice([-BALL_VELOCITY * rn, BALL_VELOCITY * rn])
-        vy = -BALL_VELOCITY
+        vx = random.choice([-SANTA_VELOCITY * rn, SANTA_VELOCITY * rn])
+        vy = -SANTA_VELOCITY
         velocity = Point(vx, vy)
         self._body.set_velocity(velocity)"""
