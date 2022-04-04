@@ -97,6 +97,7 @@ SCORE_FORMAT = "SCORE: {}"
 # SANTA
 SANTA_GROUP = "santas"
 SANTA_IMAGE = "christmas_catch/assets/images/000.png"
+SANTA_COMEBACK = "christmas_catch/assets/images/001.png"
 SANTA_WIDTH = 135
 SANTA_HEIGHT = 130
 SANTA_VELOCITY = 3

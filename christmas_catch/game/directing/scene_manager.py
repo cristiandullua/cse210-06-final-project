@@ -202,7 +202,7 @@ class SceneManager:
     def _add_santa(self, cast):
         cast.clear_actors(SANTA_GROUP)
         x = (0)
-        y = (50)
+        y = (10)
         position = Point(x, y)
         size = Point(SANTA_WIDTH, SANTA_HEIGHT)
         velocity = Point(3, 0)

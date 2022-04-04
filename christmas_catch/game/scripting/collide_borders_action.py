@@ -1,6 +1,8 @@
 from constants import *
 from game.casting.sound import Sound
 from game.scripting.action import Action
+from game.casting.image import Image
+from game.casting.santa import Santa
 
 
 class CollideBordersAction(Action):
@@ -19,9 +21,18 @@ class CollideBordersAction(Action):
         if x < FIELD_LEFT:
             santa.bounce_x()
             self._audio_service.play_sound(bounce_sound)
+            cast.clear_actors (SANTA_GROUP)            
+            image = Image(SANTA_IMAGE)
+            santa = Santa(body, image, True)
+            cast.add_actor(SANTA_GROUP, santa)
+            
         elif x >= (FIELD_RIGHT - SANTA_WIDTH):
             santa.bounce_x() 
             self._audio_service.play_sound(bounce_sound)
+            cast.clear_actors(SANTA_GROUP)            
+            image = Image(SANTA_COMEBACK)
+            santa = Santa(body, image, True)
+            cast.add_actor(SANTA_GROUP, santa)
 
         gifts = cast.get_actors(GIFT_GROUP)
         for gift in gifts:
