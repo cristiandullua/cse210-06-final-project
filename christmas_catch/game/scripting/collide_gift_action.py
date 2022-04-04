@@ -47,6 +47,7 @@ class CollideGiftAction(Action):
                 if stats.get_lives() > 0:
                     callback.on_next(UPDATE) 
                     callback.on_next(INPUT)
+                    callback.on_next(LOAD) 
                     callback.on_next(IN_PLAY) 
                 else:
                     callback.on_next(GAME_OVER)
