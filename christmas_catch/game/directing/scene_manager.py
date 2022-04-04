@@ -161,13 +161,12 @@ class SceneManager:
         script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, WELCOME_SOUND))
         
     def _prepare_try_again(self, cast, script):
-        self._add_santa(cast)
-        self._add_boy(cast)
-        self._add_dialog(cast, PREP_TO_LAUNCH, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
+        self._add_dialog(cast, WAS_GOOD_GAME, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
 
         script.clear_actions(INPUT)
-        script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
-        self._add_update_script(script)
+        script.add_action(INPUT, TimedChangeSceneAction(GAME_OVER, 3))
+        script.clear_actions(UPDATE)
+
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
             self.DRAW_SANTA_ACTION,
