@@ -43,10 +43,8 @@ class CollideBordersAction(Action):
                     
             if x_g < FIELD_LEFT:
                 gift.bounce_x()
-                self._audio_service.play_sound(bounce_sound)
             elif x_g >= (FIELD_RIGHT - GIFT_WIDTH):
                 gift.bounce_x() 
-                self._audio_service.play_sound(bounce_sound)
 
             if y_g > FIELD_BOTTOM:
                 cast.remove_actor(GIFT_GROUP, gift)
