@@ -14,29 +14,24 @@ class CollideBordersAction(Action):
         body = santa.get_body()
         position = body.get_position()
         x = position.get_x()
-        y = position.get_y()
         bounce_sound = Sound(BOUNCE_SOUND)
-        over_sound = Sound(OVER_SOUND)
                 
         if x < FIELD_LEFT:
             santa.bounce_x()
             self._audio_service.play_sound(bounce_sound)
-
         elif x >= (FIELD_RIGHT - SANTA_WIDTH):
             santa.bounce_x() 
             self._audio_service.play_sound(bounce_sound)
 
-        if y > FIELD_TOP:
-            y = 200
-            #santa.bounce_y()
-            #self._audio_service.play_sound(bounce_sound)
-
-        """elif y >= (FIELD_BOTTOM - SANTA_WIDTH):
-            stats = cast.get_first_actor(STATS_GROUP)
-            stats.lose_life()
-            
-            if stats.get_lives() > 0:
-                callback.on_next(TRY_AGAIN) 
-            else:
-                callback.on_next(GAME_OVER)
-                self._audio_service.play_sound(over_sound)"""
+        gifts = cast.get_actors(GIFT_GROUP)
+        for gift in gifts:
+            body_g = gift.get_body()
+            position_g = body_g.get_position()
+            x_g = position_g.get_x()
+                    
+            if x_g < FIELD_LEFT:
+                gift.bounce_x()
+                self._audio_service.play_sound(bounce_sound)
+            elif x_g >= (FIELD_RIGHT - GIFT_WIDTH):
+                gift.bounce_x() 
+                self._audio_service.play_sound(bounce_sound)

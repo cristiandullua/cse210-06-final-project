@@ -9,9 +9,11 @@ class MoveGiftsAction(Action):
         pass
         
     def execute(self, cast, script, callback):
-        gift = cast.get_first_actor(GIFT_GROUP)
-        body = gift.get_body()
-        position = body.get_position()
-        velocity = body.get_velocity()        
-        position = position.add(velocity)
-        body.set_position(position)
+        gifts = cast.get_actors(GIFT_GROUP)
+
+        for gift in gifts:
+            body = gift.get_body()
+            position = body.get_position()
+            velocity = body.get_velocity()        
+            position = position.add(velocity)
+            body.set_position(position)

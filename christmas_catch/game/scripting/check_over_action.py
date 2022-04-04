@@ -12,4 +12,4 @@ class CheckOverAction(Action):
         if len(gifts) == 0:
             stats = cast.get_first_actor(STATS_GROUP)
             stats.next_level()
-            callback.on_next(NEXT_LEVEL)
+            callback.on_next(LEVEL)

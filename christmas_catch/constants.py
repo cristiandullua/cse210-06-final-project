@@ -49,17 +49,15 @@ RIGHT = "right"
 SPACE = "space"
 ENTER = "enter"
 PAUSE = "p"
+RESTART = "r"
+MENU = "m"
 
 # SCENES
 NEW_GAME = 0
 TRY_AGAIN = 1
-NEXT_LEVEL = 2
+LEVEL = 2
 IN_PLAY = 3
 GAME_OVER = 4
-
-# LEVELS
-LEVEL_FILE = "christmas_catch/assets/data/level-{:03}.txt"
-BASE_LEVELS = 5
 
 # -------------------------------------------------------------------------------------------------- 
 # SCRIPTING CONSTANTS
@@ -90,52 +88,40 @@ MAXIMUM_LIVES = 5
 
 # HUD
 HUD_MARGIN = 15
-LEVEL_GROUP = "level"
 LIVES_GROUP = "lives"
 SCORE_GROUP = "score"
-LEVEL_FORMAT = "LEVEL: {}"
 LIVES_FORMAT = "LIVES: {}"
 SCORE_FORMAT = "SCORE: {}"
 
 # SANTA
 SANTA_GROUP = "santas"
 SANTA_IMAGE = "christmas_catch/assets/images/000.png"
-SANTA_WIDTH = 28
-SANTA_HEIGHT = 28
+SANTA_WIDTH = 135
+SANTA_HEIGHT = 130
 SANTA_VELOCITY = 3
 MAX_X = 900
 MAX_Y = 600
 
 # BOY
 BOY_GROUP = "boys"
-BOY_IMAGES = [f"christmas_catch/assets/images/{n:03}.png" for n in range(100, 103)]
+BOY_IMAGE = "christmas_catch/assets/images/100.png"
 BOY_WIDTH = 120
 BOY_HEIGHT = 161
-BOY_RATE = 6
 BOY_VELOCITY = 7
 
 # GIFT/REGALOS
 GIFT_GROUP = "gifts"
-GIFT_IMAGES = {
-    "b": [f"christmas_catch/assets/images/{i:03}.png" for i in range(10,11)],
-    "g": [f"christmas_catch/assets/images/{i:03}.png" for i in range(104,105)],
-    "p": [f"christmas_catch/assets/images/{i:03}.png" for i in range(104,105)],
-    "y": [f"christmas_catch/assets/images/{i:03}.png" for i in range(104,105)]
-}
+GIFT_QUANTITY = 30
+GIFT_GREEN_IMAGES = "christmas_catch/assets/images/010.png"
+GIFT_RED_IMAGES = "christmas_catch/assets/images/020.png"
 GIFT_WIDTH = 50
-GIFT_HEIGHT = 28
-GIFT_DELAY = 0.5
-GIFT_RATE = 4
-GIFT_POINTS = 50
+GIFT_HEIGHT = 51
+GIFT_GREEN_POINTS = 50
+GIFT_RED_POINTS = 100
 
 #COAL
-COAL_GROUP = "coals"
-COAL_IMAGE = "christmas_catch/assets/images/103.png"
-COAL_WIDTH = 50
-COAL_HEIGHT = 28
-COAL_DELAY = 0.5
-COAL_RATE = 4
-COAL_POINTS = 50
+COAL_IMAGE = "christmas_catch/assets/images/104.png"
+COAL_POINTS = -50
 
 # DIALOG
 DIALOG_GROUP = "dialogs"

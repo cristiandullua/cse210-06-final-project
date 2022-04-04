@@ -6,7 +6,7 @@ from game.casting.point import Point
 class Boy(Actor):
     """A implement used to hit and bounce the santa in the game."""
     
-    def __init__(self, body, animation, debug = False):
+    def __init__(self, body, image, debug = False):
         """Constructs a new Bat.
         
         Args:Args:
@@ -15,16 +15,8 @@ class Boy(Actor):
             debug: If it is being debugged. 
         """
         super().__init__(debug)
+        self._image = image
         self._body = body
-        self._animation = animation
-
-    def get_animation(self):
-        """Gets the bat's animation.
-        
-        Returns:
-            An instance of Animation.
-        """
-        return self._animation
 
     def get_body(self):
         """Gets the bat's body.
@@ -55,3 +47,11 @@ class Boy(Actor):
         """Stops the bat from moving."""
         velocity = Point(0, 0)
         self._body.set_velocity(velocity)
+
+    def get_image(self):
+        """Gets the santa's image.
+        
+        Returns:
+            An instance of Image.
+        """
+        return self._image

@@ -25,18 +25,8 @@ class Santa(Actor):
     def bounce_x(self):
         """Bounces the santa in the x direction."""
         velocity = self._body.get_velocity()
-        rn = random.uniform(0.9, 0)
         vx = velocity.get_x() * -1
         vy = velocity.get_y()
-        velocity = Point(vx, vy)
-        self._body.set_velocity(velocity)
-
-    def bounce_y(self):
-        """Bounces the santa in the y direction"""
-        velocity = self._body.get_velocity()
-        #rn = random.uniform(0.9, 1.1)
-        vx = velocity.get_x()
-        vy = velocity.get_y() * -1 
         velocity = Point(vx, vy)
         self._body.set_velocity(velocity)
 
@@ -55,11 +45,3 @@ class Santa(Actor):
             An instance of Image.
         """
         return self._image
-        
-    """def release(self):
-        Release the santa in a random direction.
-        rn = random.uniform(0.9, 1.1)
-        vx = random.choice([-SANTA_VELOCITY * rn, SANTA_VELOCITY * rn])
-        vy = -SANTA_VELOCITY
-        velocity = Point(vx, vy)
-        self._body.set_velocity(velocity)"""

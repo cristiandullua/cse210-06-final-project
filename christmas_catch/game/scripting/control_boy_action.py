@@ -14,4 +14,4 @@ class ControlBoyAction(Action):
         elif self._keyboard_service.is_key_down(RIGHT): 
             boy.swing_right()  
         else: 
-            boy.stop_moving()        
+            boy.stop_moving()

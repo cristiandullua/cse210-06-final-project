@@ -1,7 +1,5 @@
-import csv
-from pickle import TRUE
-from constants import *
 import random
+from constants import *
 from game.casting.animation import Animation
 from game.casting.santa import Santa
 from game.casting.body import Body
@@ -77,8 +75,8 @@ class SceneManager:
     def prepare_scene(self, scene, cast, script):
         if scene == NEW_GAME:
             self._prepare_new_game(cast, script)
-        elif scene == NEXT_LEVEL:
-            self._prepare_next_level(cast, script)
+        elif scene == LEVEL:
+            self._prepare_level(cast, script)
         elif scene == TRY_AGAIN:
             self._prepare_try_again(cast, script)
         elif scene == IN_PLAY:
@@ -103,14 +101,13 @@ class SceneManager:
         self._add_initialize_script(script)
         self._add_load_script(script)
         script.clear_actions(INPUT)
-        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, NEXT_LEVEL))
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, LEVEL, ENTER))
         self._add_output_script(script, output_elements)
         self._add_unload_script(script)
         self._add_release_script(script)
         
-    def _prepare_next_level(self, cast, script):
+    def _prepare_level(self, cast, script):
         self._add_stats(cast)
-        self._add_level(cast)
         self._add_lives(cast)
         self._add_score(cast)
         self._add_santa(cast)
@@ -150,11 +147,12 @@ class SceneManager:
         self._add_output_script(script, output_elements)
 
     def _prepare_in_play(self, cast, script):
-        self._activate_santa(cast)
         cast.clear_actors(DIALOG_GROUP)
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, self.CONTROL_BOY_ACTION)
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, LEVEL, RESTART))
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, NEW_GAME, MENU))
         self._add_update_script(script)
 
         output_elements = [self.DRAW_BACKGROUND_ACTION,
@@ -189,11 +187,6 @@ class SceneManager:
     # ----------------------------------------------------------------------------------------------
     # casting methods
     # ----------------------------------------------------------------------------------------------
-    
-    def _activate_santa(self, cast):
-        santa = cast.get_first_actor(SANTA_GROUP)
-        #santa.release()
-
     def _add_background(self, cast, image_path):
         cast.clear_actors(BACKGROUND_GROUP)
         x = (0)
@@ -219,58 +212,28 @@ class SceneManager:
 
     def _add_gifts(self, cast):
         cast.clear_actors(GIFT_GROUP)
-        
-        stats = cast.get_first_actor(STATS_GROUP)
-        level = stats.get_level() % BASE_LEVELS
-        filename = LEVEL_FILE.format(level)
-        cols = 100
-        rows = 65
 
-        with open(filename, 'r') as file:
-            reader = csv.reader(file, skipinitialspace=True)
+        for i in range(GIFT_QUANTITY):
+            x = random.randrange(FIELD_LEFT, FIELD_RIGHT)
+            y = random.randrange(-10000 , -40)
+            position = Point(x, y)
+            size = Point(GIFT_WIDTH, GIFT_HEIGHT)
+            
+            vel_x = random.randrange(-2, 2)
+            vel_y = random.randrange(2,4)
+            velocity = Point(vel_x, vel_y)
 
-            for r, row in enumerate(reader):
-                for c, column in enumerate(row):
-
-
-                    x = random.randint(0,900)
-                    y = random.randint(-200,-100)
-
-                    color = column[0]
-                    frames = int(column[1])
+            type_of_gift = random.randrange(0,3)
+            body = Body(position, size, velocity)
+            gift = Gift(body, type_of_gift, True)
                     
-                    points = GIFT_POINTS 
-                    
-                    if frames == 1:
-
-                        points *= 2                                         
-                                              
-                    else:
-                        points -= 150
-                    
-                    position = Point(x, y)
-                    size = Point(GIFT_WIDTH, GIFT_HEIGHT)
-                    velocity = Point(0, 0 + 3)
-                    images = GIFT_IMAGES[color][0:frames]
-
-                    body = Body(position, size, velocity)
-                    animation = Animation(images, GIFT_RATE, GIFT_DELAY)
-
-                    gift = Gift(body, animation, points, cols, rows)
-                    cast.add_actor(GIFT_GROUP, gift)
+            cast.add_actor(GIFT_GROUP, gift)
 
     def _add_dialog(self, cast, message, file, size, alignment, p_position, multiple=False):
         if multiple == False:
             cast.clear_actors(DIALOG_GROUP)
         label = Label(Text(message, file, size, alignment), p_position)
         cast.add_actor(DIALOG_GROUP, label)
-
-    def _add_level(self, cast):
-        cast.clear_actors(LEVEL_GROUP)
-        text = Text(LEVEL_FORMAT, FONT_FILE, FONT_SMALL, ALIGN_LEFT)
-        position = Point(HUD_MARGIN, HUD_MARGIN)
-        label = Label(text, position)
-        cast.add_actor(LEVEL_GROUP, label)
 
     def _add_lives(self, cast):
         cast.clear_actors(LIVES_GROUP)
@@ -299,8 +262,8 @@ class SceneManager:
         size = Point(BOY_WIDTH, BOY_HEIGHT)
         velocity = Point(0, 0)
         body = Body(position, size, velocity)
-        animation = Animation(BOY_IMAGES, BOY_RATE)
-        boy = Boy(body, animation)
+        image = Image(BOY_IMAGE)
+        boy = Boy(body, image, True)
         cast.add_actor(BOY_GROUP, boy)
 
     # ----------------------------------------------------------------------------------------------
@@ -320,12 +283,6 @@ class SceneManager:
 
         for i in list:
             script.add_action(OUTPUT, i)
-#        script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
-#        script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
-#        script.add_action(OUTPUT, self.DRAW_SANTA_ACTION)
-#        script.add_action(OUTPUT, self.DRAW_GIFTS_ACTION)
-#        script.add_action(OUTPUT, self.DRAW_BOY_ACTION)
-#        script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 
     def _add_release_script(self, script):
