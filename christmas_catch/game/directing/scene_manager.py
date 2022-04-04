@@ -166,19 +166,20 @@ class SceneManager:
         self._add_output_script(script, output_elements)
 
     def _prepare_game_over(self, cast, script):
-        self._add_santa(cast)
-        self._add_boy(cast)
-        self._add_dialog(cast, WAS_GOOD_GAME, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
+        cast.clear_actors(DIALOG_GROUP)
+        stats = cast.get_first_actor(STATS_GROUP)
+        self._add_dialog(cast, WAS_GOOD_GAME, FONT_FILE_LOGO, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
+        self._add_dialog(cast, FINAL_SCORE + str(stats.get_score()), FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, 100), True)
+        self._add_dialog(cast, M_TO_MENU, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, 450), True)
+        self._add_dialog(cast, R_TO_RESTART, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, 550), True)
+        self._add_background(cast, GAME_OVER_IMAGE)
 
         script.clear_actions(INPUT)
-        script.add_action(INPUT, TimedChangeSceneAction(NEW_GAME, 5))
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, LEVEL, RESTART))
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, NEW_GAME, MENU))
         script.clear_actions(UPDATE)
 
         output_elements = [self.DRAW_BACKGROUND_ACTION,
-            self.DRAW_HUD_ACTION,
-            self.DRAW_SANTA_ACTION,
-            self.DRAW_GIFTS_ACTION,
-            self.DRAW_BOY_ACTION,
             self.DRAW_DIALOG_ACTION
         ]
 
@@ -212,15 +213,16 @@ class SceneManager:
 
     def _add_gifts(self, cast):
         cast.clear_actors(GIFT_GROUP)
-
+        
         for i in range(GIFT_QUANTITY):
             x = random.randrange(FIELD_LEFT, FIELD_RIGHT - GIFT_WIDTH)
-            y = random.randrange(-10000 , -40)
+            y = Y_DISTANCE * (i+1)
             position = Point(x, y)
+            
             size = Point(GIFT_WIDTH, GIFT_HEIGHT)
             
             vel_x = random.randrange(-2, 2)
-            vel_y = random.randrange(2,4)
+            vel_y = 3
             velocity = Point(vel_x, vel_y)
 
             type_of_gift = random.randrange(0,3)

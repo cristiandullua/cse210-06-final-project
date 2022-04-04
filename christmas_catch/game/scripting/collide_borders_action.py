@@ -28,6 +28,7 @@ class CollideBordersAction(Action):
             body_g = gift.get_body()
             position_g = body_g.get_position()
             x_g = position_g.get_x()
+            y_g = position_g.get_y()
                     
             if x_g < FIELD_LEFT:
                 gift.bounce_x()
@@ -35,3 +36,6 @@ class CollideBordersAction(Action):
             elif x_g >= (FIELD_RIGHT - GIFT_WIDTH):
                 gift.bounce_x() 
                 self._audio_service.play_sound(bounce_sound)
+
+            if y_g > FIELD_BOTTOM:
+                cast.remove_actor(GIFT_GROUP, gift)

@@ -17,7 +17,7 @@ CENTER_Y = SCREEN_HEIGHT / 2
 
 # FIELD
 FIELD_TOP = 40
-FIELD_BOTTOM = 200
+FIELD_BOTTOM = SCREEN_HEIGHT
 FIELD_LEFT = 0
 FIELD_RIGHT = SCREEN_WIDTH
 
@@ -80,6 +80,7 @@ RELEASE = 6
 BACKGROUND_GROUP = "background"
 BACKGROUND_IMAGE = "christmas_catch/assets/images/background.png"
 MENU_IMAGE = "christmas_catch/assets/images/menu_background.png"
+GAME_OVER_IMAGE = "christmas_catch/assets/images/game_over_background.png"
 
 # STATS
 STATS_GROUP = "stats"
@@ -112,6 +113,7 @@ BOY_VELOCITY = 7
 # GIFT/REGALOS
 GIFT_GROUP = "gifts"
 GIFT_QUANTITY = 30
+Y_DISTANCE = -200
 GIFT_GREEN_IMAGES = "christmas_catch/assets/images/010.png"
 GIFT_RED_IMAGES = "christmas_catch/assets/images/020.png"
 GIFT_WIDTH = 50
@@ -125,6 +127,9 @@ COAL_POINTS = -50
 
 # DIALOG
 DIALOG_GROUP = "dialogs"
-ENTER_TO_START = "PRESS ENTER TO START"
+ENTER_TO_START = "PRESS 'ENTER' TO START"
 PREP_TO_LAUNCH = "PREPARING TO LAUNCH"
 WAS_GOOD_GAME = "GAME OVER"
+M_TO_MENU = "PRESS 'M' TO GO BACK TO MENU"
+R_TO_RESTART = "PRESS 'R' TO RESTART"
+FINAL_SCORE = "YOUR SCORE WAS: "
