@@ -75,6 +75,8 @@ class SceneManager:
     def prepare_scene(self, scene, cast, script):
         if scene == NEW_GAME:
             self._prepare_new_game(cast, script)
+        elif scene == INSTRUCTIONS:    
+            self._prepare_instructions(cast, script)
         elif scene == LEVEL:
             self._prepare_level(cast, script)
         elif scene == TRY_AGAIN:
@@ -89,8 +91,10 @@ class SceneManager:
     # ----------------------------------------------------------------------------------------------
     
     def _prepare_new_game(self, cast, script):
+        cast.clear_actors(DIALOG_GROUP)
         self._add_dialog(cast, GAME_NAME, FONT_FILE_LOGO, FONT_SIZE_LOGO, ALIGN_CENTER, Point(CENTER_X, 0))
         self._add_dialog(cast, ENTER_TO_START, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y), True)
+        self._add_dialog(cast, H_TO_INSTRUCTIONS, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y + 100), True)
         self._add_background(cast, MENU_IMAGE)
 
         output_elements = [
@@ -102,9 +106,36 @@ class SceneManager:
         self._add_load_script(script)
         script.clear_actions(INPUT)
         script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, LEVEL, ENTER))
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, INSTRUCTIONS, HELP))
         self._add_output_script(script, output_elements)
         self._add_unload_script(script)
         self._add_release_script(script)
+    
+    def _prepare_instructions(self, cast, script):
+        cast.clear_actors(DIALOG_GROUP)
+
+        self._add_dialog(cast, RED_GIFT_INSTRUCTIONS, FONT_FILE, FONT_SMALL, ALIGN_LEFT, Point(25, 100), True)
+        self._add_dialog(cast, GREEN_GIFT_INSTRUCTIONS, FONT_FILE, FONT_SMALL, ALIGN_LEFT, Point(25, 200), True)
+        self._add_dialog(cast, COAL_INSTRUCTIONS, FONT_FILE, FONT_SMALL, ALIGN_LEFT, Point(25, 300), True)
+        self._add_dialog(cast, OVER_INSTRUCTIONS, FONT_FILE, FONT_SMALL, ALIGN_LEFT, Point(25, 400), True)
+
+        self._add_dialog(cast, M_TO_MENU, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, 500), True)
+        self._add_background(cast, MENU_IMAGE)
+
+        output_elements = [
+            self.DRAW_BACKGROUND_ACTION,
+            self.DRAW_DIALOG_ACTION, 
+        ]
+
+        script.clear_actions(INPUT)
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, NEW_GAME, MENU))
+        script.clear_actions(UPDATE)
+
+        output_elements = [self.DRAW_BACKGROUND_ACTION,
+            self.DRAW_DIALOG_ACTION
+        ]
+
+        self._add_output_script(script, output_elements)
         
     def _prepare_level(self, cast, script):
         self._add_stats(cast)

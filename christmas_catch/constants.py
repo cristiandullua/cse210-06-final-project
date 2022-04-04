@@ -51,6 +51,7 @@ ENTER = "enter"
 PAUSE = "p"
 RESTART = "r"
 MENU = "m"
+HELP = "h"
 
 # SCENES
 NEW_GAME = 0
@@ -58,6 +59,7 @@ TRY_AGAIN = 1
 LEVEL = 2
 IN_PLAY = 3
 GAME_OVER = 4
+INSTRUCTIONS = 5
 
 # -------------------------------------------------------------------------------------------------- 
 # SCRIPTING CONSTANTS
@@ -129,8 +131,13 @@ COAL_POINTS = -50
 # DIALOG
 DIALOG_GROUP = "dialogs"
 ENTER_TO_START = "PRESS 'ENTER' TO START"
+H_TO_INSTRUCTIONS = "PRESS 'H' FOR INSTRUCTIONS"
 PREP_TO_LAUNCH = "PREPARING TO LAUNCH"
 WAS_GOOD_GAME = "GAME OVER"
 M_TO_MENU = "PRESS 'M' TO GO BACK TO MENU"
 R_TO_RESTART = "PRESS 'R' TO RESTART"
 FINAL_SCORE = "YOUR SCORE WAS: "
+RED_GIFT_INSTRUCTIONS = "RED gifts gives you 100 Points"
+GREEN_GIFT_INSTRUCTIONS = "GREEN gifts gives you 100 Points"
+COAL_INSTRUCTIONS = "COALS takes you 50 Points and 1 life"
+OVER_INSTRUCTIONS = "The game finishes when you ran out of gifts or lives"
