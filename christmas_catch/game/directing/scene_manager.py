@@ -214,7 +214,7 @@ class SceneManager:
         cast.clear_actors(GIFT_GROUP)
 
         for i in range(GIFT_QUANTITY):
-            x = random.randrange(FIELD_LEFT, FIELD_RIGHT)
+            x = random.randrange(FIELD_LEFT, FIELD_RIGHT - GIFT_WIDTH)
             y = random.randrange(-10000 , -40)
             position = Point(x, y)
             size = Point(GIFT_WIDTH, GIFT_HEIGHT)
@@ -226,7 +226,7 @@ class SceneManager:
             type_of_gift = random.randrange(0,3)
             body = Body(position, size, velocity)
             gift = Gift(body, type_of_gift, True)
-                    
+
             cast.add_actor(GIFT_GROUP, gift)
 
     def _add_dialog(self, cast, message, file, size, alignment, p_position, multiple=False):
