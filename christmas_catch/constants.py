@@ -115,7 +115,7 @@ BOY_VELOCITY = 7
 
 # GIFT/REGALOS
 GIFT_GROUP = "gifts"
-GIFT_QUANTITY = 30
+GIFT_QUANTITY = 10
 Y_DISTANCE = -200
 GIFT_GREEN_IMAGES = "christmas_catch/assets/images/010.png"
 GIFT_RED_IMAGES = "christmas_catch/assets/images/020.png"
