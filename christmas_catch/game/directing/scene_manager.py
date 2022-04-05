@@ -91,15 +91,23 @@ class SceneManager:
     # ----------------------------------------------------------------------------------------------
     # scene methods
     # ----------------------------------------------------------------------------------------------
-    
+
+# Menu screen
     def _prepare_new_game(self, cast, script):
         cast.clear_actors(DIALOG_GROUP)
+
+        # text with logo and instructions to start
         self._add_dialog(cast, GAME_NAME, FONT_FILE_LOGO, FONT_SIZE_LOGO, ALIGN_CENTER, Point(CENTER_X, 0))
         self._add_dialog(cast, ENTER_TO_START, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y), True)
         self._add_dialog(cast, H_TO_INSTRUCTIONS, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y + 100), True)
         self._add_dialog(cast, P_TO_PAUSE, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y + 200), True)
 
         self._add_background(cast, MENU_IMAGE)
+
+        # actions to move to other scenes
+        script.clear_actions(INPUT)
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, LEVEL, ENTER))
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, INSTRUCTIONS, HELP))
 
         output_elements = [
             self.DRAW_BACKGROUND_ACTION,
@@ -108,40 +116,39 @@ class SceneManager:
 
         self._add_initialize_script(script)
         self._add_load_script(script)
-        script.clear_actions(INPUT)
-        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, LEVEL, ENTER))
-        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, INSTRUCTIONS, HELP))
         self._add_output_script(script, output_elements)
         self._add_unload_script(script)
         self._add_release_script(script)
-    
+
+# Instructions screen
     def _prepare_instructions(self, cast, script):
         cast.clear_actors(DIALOG_GROUP)
 
+        # text with instructions on how to play the game
         self._add_dialog(cast, RED_GIFT_INSTRUCTIONS, FONT_FILE, FONT_SMALL, ALIGN_LEFT, Point(25, 100), True)
         self._add_dialog(cast, GREEN_GIFT_INSTRUCTIONS, FONT_FILE, FONT_SMALL, ALIGN_LEFT, Point(25, 200), True)
         self._add_dialog(cast, COAL_INSTRUCTIONS, FONT_FILE, FONT_SMALL, ALIGN_LEFT, Point(25, 300), True)
         self._add_dialog(cast, OVER_INSTRUCTIONS, FONT_FILE, FONT_SMALL, ALIGN_LEFT, Point(25, 400), True)
 
+        # how to go to menu
         self._add_dialog(cast, M_TO_MENU, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, 500), True)
+        
         self._add_background(cast, MENU_IMAGE)
 
-        output_elements = [
-            self.DRAW_BACKGROUND_ACTION,
-            self.DRAW_DIALOG_ACTION, 
-        ]
-
+        # actions to move to other scenes
         script.clear_actions(INPUT)
-        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, NEW_GAME, MENU))
         script.clear_actions(UPDATE)
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, NEW_GAME, MENU))
 
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_DIALOG_ACTION
         ]
 
         self._add_output_script(script, output_elements)
-        
+
+# prepare game to start
     def _prepare_level(self, cast, script):
+        # add actors to game
         self._add_stats(cast)
         self._add_lives(cast)
         self._add_score(cast)
@@ -151,6 +158,11 @@ class SceneManager:
         self._add_background(cast, BACKGROUND_IMAGE)
         self._add_dialog(cast, PREP_TO_LAUNCH, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
 
+        # actions to move to other scenes
+        script.clear_actions(INPUT)
+        script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
+        script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, WELCOME_SOUND))
+
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
             self.DRAW_SANTA_ACTION,
@@ -159,17 +171,17 @@ class SceneManager:
             self.DRAW_DIALOG_ACTION
         ]
 
-        script.clear_actions(INPUT)
-        script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
         self._add_output_script(script, output_elements)
-        script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, WELCOME_SOUND))
-        
+
+# Scene when game is over        
     def _prepare_try_again(self, cast, script):
         self._add_dialog(cast, WAS_GOOD_GAME, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
-
+        
+        # clear actions to stop all sprites from moving
         script.clear_actions(INPUT)
         script.clear_actions(UPDATE)
 
+        # wait 3 seconds and move to final scene
         script.add_action(INPUT, TimedChangeSceneAction(GAME_OVER, 3))
         
         output_elements = [self.DRAW_BACKGROUND_ACTION,
@@ -181,9 +193,12 @@ class SceneManager:
         ]
         self._add_output_script(script, output_elements)
 
+# while playing action
     def _prepare_in_play(self, cast, script):
+        # clear texts from MENU
         cast.clear_actors(DIALOG_GROUP)
 
+        # actions to move to other scenes
         script.clear_actions(INPUT)
         script.add_action(INPUT, self.CONTROL_BOY_ACTION)
         script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, LEVEL, RESTART))
@@ -225,15 +240,20 @@ class SceneManager:
 
         self._add_output_script(script, output_elements)
 
+# Final scene
     def _prepare_game_over(self, cast, script):
         cast.clear_actors(DIALOG_GROUP)
+
+        # display final score
         stats = cast.get_first_actor(STATS_GROUP)
+        
         self._add_dialog(cast, WAS_GOOD_GAME, FONT_FILE_LOGO, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
         self._add_dialog(cast, FINAL_SCORE + str(stats.get_score()), FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, 100), True)
         self._add_dialog(cast, M_TO_MENU, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, 450), True)
         self._add_dialog(cast, R_TO_RESTART, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, 550), True)
         self._add_background(cast, GAME_OVER_IMAGE)
 
+        # actions to move to other scenes
         script.clear_actions(INPUT)
         script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, LEVEL, RESTART))
         script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, NEW_GAME, MENU))
