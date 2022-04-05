@@ -19,7 +19,7 @@ class CollideGiftAction(Action):
             gift_body = gift.get_body()
             
             if self._physics_service.has_collided(boy_body, gift_body):
-                sound = Sound(BOUNCE_SOUND)
+                sound = Sound(PRESENT_SOUND)
                 self._audio_service.play_sound(sound)
                 points = gift.get_points()
                 stats.add_points(points)

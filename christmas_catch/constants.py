@@ -30,6 +30,7 @@ FONT_SIZE_LOGO = 60
 
 # SOUND
 BOUNCE_SOUND = "christmas_catch/assets/sounds/boing.wav"
+PRESENT_SOUND = "christmas_catch/assets/sounds/present.mp3"
 WELCOME_SOUND = "christmas_catch/assets/sounds/christmas.mp3"
 OVER_SOUND = "christmas_catch/assets/sounds/over.wav"
 
