@@ -161,8 +161,7 @@ class SceneManager:
         # actions to move to other scenes
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
-        script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, WELCOME_SOUND))
-
+        
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
             self.DRAW_SANTA_ACTION,
@@ -172,6 +171,7 @@ class SceneManager:
         ]
 
         self._add_output_script(script, output_elements)
+        script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, WELCOME_SOUND))
 
 # Scene when game is over        
     def _prepare_try_again(self, cast, script):
