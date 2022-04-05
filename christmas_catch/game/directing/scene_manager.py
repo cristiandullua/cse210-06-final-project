@@ -97,6 +97,8 @@ class SceneManager:
         self._add_dialog(cast, GAME_NAME, FONT_FILE_LOGO, FONT_SIZE_LOGO, ALIGN_CENTER, Point(CENTER_X, 0))
         self._add_dialog(cast, ENTER_TO_START, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y), True)
         self._add_dialog(cast, H_TO_INSTRUCTIONS, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y + 100), True)
+        self._add_dialog(cast, P_TO_PAUSE, FONT_FILE, FONT_LARGE, ALIGN_CENTER, Point(CENTER_X, CENTER_Y + 200), True)
+
         self._add_background(cast, MENU_IMAGE)
 
         output_elements = [
