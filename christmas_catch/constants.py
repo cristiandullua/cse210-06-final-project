@@ -48,7 +48,7 @@ LEFT = "left"
 RIGHT = "right"
 SPACE = "space"
 ENTER = "enter"
-PAUSE = "p"
+PAUSE_P = "p"
 RESTART = "r"
 MENU = "m"
 HELP = "h"
@@ -60,6 +60,7 @@ LEVEL = 2
 IN_PLAY = 3
 GAME_OVER = 4
 INSTRUCTIONS = 5
+PAUSE = 6
 
 # -------------------------------------------------------------------------------------------------- 
 # SCRIPTING CONSTANTS
@@ -141,3 +142,4 @@ RED_GIFT_INSTRUCTIONS = "RED gifts gives you 100 Points"
 GREEN_GIFT_INSTRUCTIONS = "GREEN gifts gives you 50 Points"
 COAL_INSTRUCTIONS = "COALS takes you 50 Points and 1 life"
 OVER_INSTRUCTIONS = "The game finishes when you ran out of gifts or lives"
+PAUSE_TEXT = "PAUSE"

@@ -1,4 +1,3 @@
-from game.casting.text import Text
 from game.casting.point import Point
 
 

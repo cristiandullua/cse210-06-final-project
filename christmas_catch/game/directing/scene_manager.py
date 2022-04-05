@@ -85,7 +85,9 @@ class SceneManager:
             self._prepare_in_play(cast, script)
         elif scene == GAME_OVER:    
             self._prepare_game_over(cast, script)
-    
+        elif scene == PAUSE:    
+            self._prepare_pause(cast, script)    
+
     # ----------------------------------------------------------------------------------------------
     # scene methods
     # ----------------------------------------------------------------------------------------------
@@ -164,9 +166,10 @@ class SceneManager:
         self._add_dialog(cast, WAS_GOOD_GAME, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
 
         script.clear_actions(INPUT)
-        script.add_action(INPUT, TimedChangeSceneAction(GAME_OVER, 3))
         script.clear_actions(UPDATE)
 
+        script.add_action(INPUT, TimedChangeSceneAction(GAME_OVER, 3))
+        
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
             self.DRAW_SANTA_ACTION,
@@ -183,7 +186,32 @@ class SceneManager:
         script.add_action(INPUT, self.CONTROL_BOY_ACTION)
         script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, LEVEL, RESTART))
         script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, NEW_GAME, MENU))
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, PAUSE, PAUSE_P))
         self._add_update_script(script)
+
+        output_elements = [self.DRAW_BACKGROUND_ACTION,
+            self.DRAW_HUD_ACTION,
+            self.DRAW_SANTA_ACTION,
+            self.DRAW_GIFTS_ACTION,
+            self.DRAW_BOY_ACTION,
+            self.DRAW_DIALOG_ACTION
+        ]
+
+        self._add_output_script(script, output_elements)
+
+# Pause the game
+    def _prepare_pause(self, cast, script):
+        # Stop movement and all actions
+        script.clear_actions(INPUT)
+        script.clear_actions(UPDATE)
+        script.clear_actions(OUTPUT)
+
+        # Add 'Pause' text
+        self._add_dialog(cast, PAUSE_TEXT, FONT_FILE, FONT_SMALL, ALIGN_CENTER, Point(CENTER_X, CENTER_Y))
+        
+        # Recursive function to Pause the game 
+        script.add_action(INPUT, TimedChangeSceneAction(PAUSE, 30))
+        script.add_action(INPUT, ChangeSceneAction(self.KEYBOARD_SERVICE, IN_PLAY, PAUSE_P))
 
         output_elements = [self.DRAW_BACKGROUND_ACTION,
             self.DRAW_HUD_ACTION,
